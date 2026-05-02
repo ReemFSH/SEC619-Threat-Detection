@@ -1,5 +1,5 @@
 # SEC619 — Integration and Evaluation Guide
-## LLM-Driven Digital Threat Detection in Spoken Communication
+## SheriffSpeech: LLM-Driven Digital Threat Detection in Voice Communication
 **Reem Fuad Shareef · Dr. Waleed Algobi · Term 242**
 
 ---
