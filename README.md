@@ -134,7 +134,7 @@ The evaluation dataset contains **100 spoken audio samples** with balanced class
 | C08_CPY | Copyright Infringement | Piracy, unauthorized sharing |
 | C09_JBK | Jailbreak Attempts | Prompts designed to bypass safety systems |
 
-### Safe Categories — 50 samples
+### Safe Categories: 50 samples
 
 | Code | Category |
 |------|----------|
@@ -168,20 +168,20 @@ The evaluation dataset contains **100 spoken audio samples** with balanced class
 - Two GPU servers (for running Whisper, SpeechBrain, and Qwen3Guard)
 - Alternatively: run all models locally on a single GPU machine with sufficient VRAM
 
-### Step 1 — Clone the repository
+### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/SEC619-Threat-Detection.git
 cd SEC619-Threat-Detection
 ```
 
-### Step 2 — Install dependencies
+### Step 2: Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3 — Start the model servers
+### Step 3: Start the model servers
 
 See `servers/server_startup.sh` for the exact commands. Summary:
 
@@ -202,7 +202,7 @@ source bin/activate
 vllm serve Qwen/Qwen3Guard-Gen-8B --host 0.0.0.0 --port 8000 --max-model-len 8192
 ```
 
-### Step 4 — Configure server addresses
+### Step 4: Configure server addresses
 
 Edit `pipeline/pipeline.py` → Section D:
 ```python
@@ -225,7 +225,7 @@ python build_dataset.py
 python tts_generator.py
 ```
 
-### Run System A — Baseline (text-only)
+### Run System A: Baseline (text-only)
 
 ```python
 # In pipeline/pipeline.py, set:
@@ -236,7 +236,7 @@ CSV_NAME       = "multimodal_result.csv"
 python pipeline/pipeline.py
 ```
 
-### Run System B — Full Fusion Pipeline
+### Run System B: Full Fusion Pipeline
 
 ```python
 # In pipeline/pipeline.py, set:
@@ -283,21 +283,21 @@ python evaluation/latency_analysis.py
 
 ### Confusion Matrices
 
-**System A — Baseline**
+**System A: Baseline**
 ```
                    Pred: UNSAFE   Pred: SAFE
 Actual: UNSAFE        TP = 50       FN = 0   ← caught all threats
 Actual: SAFE           FP = 4      TN = 46   ← 4 false alarms
 ```
 
-**System B — Full Fusion Pipeline**
+**System B: Full Fusion Pipeline**
 ```
                    Pred: UNSAFE   Pred: SAFE
 Actual: UNSAFE        TP = 49       FN = 1   ← 1 missed threat
 Actual: SAFE           FP = 0      TN = 50   ← zero false alarms ✅
 ```
 
-### Corrected Latency Breakdown
+### Latency Breakdown
 
 | Stage | System A | System B | Overhead |
 |-------|----------|----------|----------|
@@ -316,17 +316,6 @@ Actual: SAFE           FP = 0      TN = 50   ← zero false alarms ✅
 - ⚠️ **65.4% latency overhead** from SpeechBrain — justified by safety-critical gains
 - 🔍 **Hardest case**: self-harm content framed as empathetic/supportive speech
 - 📊 System B disagreed with System A on **5 files**: it correctly resolved **4 of 5**
-
----
-
-## 🔮 Future Work
-
-- Dedicated **self-harm intent classifiers** for ambiguous empathetic language
-- **ASR error normalization** to handle transcription noise on low-quality audio
-- **Real-time streaming** integration for live audio monitoring
-- Reduce SpeechBrain latency via model distillation or quantization
-- Expand to **multilingual** and **dialect-diverse** audio
-
 ---
 
 ## 🛠️ Technology Stack
@@ -369,7 +358,6 @@ King Fahd University of Petroleum and Minerals (KFUPM)
 
 **Supervisor:** Dr. Waleed Algobi
 **Course:** SEC619: Graduation Project
-**Term:** 242 (Spring 2026)
 
 ---
 
